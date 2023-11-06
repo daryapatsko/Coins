@@ -1,9 +1,11 @@
 import React from 'react';
+import CoinTable from './components/CoinTable/CoinTable';
+
 
 function App() {
   return (
-    <div className="App">
-    </div>
+
+    <CoinTable></CoinTable>
   );
 }
 
