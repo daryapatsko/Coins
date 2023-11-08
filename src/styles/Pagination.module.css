@@ -1,0 +1,15 @@
+.btn_pagination {
+  display: block;
+  padding: 10px 20px;
+  margin: 0 auto;
+  max-width: 150px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fff;
+  border: #e7e7e7;
+}
+
+.btn_pagination:hover {
+  background-color: #8c7b7b;
+  color: #fff;
+}/*# sourceMappingURL=Pagination.module.css.map */

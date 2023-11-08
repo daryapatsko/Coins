@@ -1,11 +1,18 @@
 import React from 'react';
-import CoinTable from './components/CoinTable/CoinTable';
+import {Routes, Route} from "react-router-dom"
+import MainPage from './pages/MainPage';
+import "./App.css"
+import CurrentCoinPage from './pages/CurrentCoinPage';
+// import styles  from "./App.module.scss"
+
 
 
 function App() {
   return (
-
-    <CoinTable></CoinTable>
+    <Routes>
+      <Route path="/" element={<MainPage/>}></Route>
+      <Route path="/coins/:id" element={<CurrentCoinPage/>}></Route>
+    </Routes>
   );
 }
 
