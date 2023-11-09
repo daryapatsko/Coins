@@ -1,6 +1,53 @@
+.curr__coin__container{
+    padding:20px;
+}
 .curr_coin_info{
     padding: 20px;
     width: 40%;
     border: 1px solid black;
     border-radius: 10px;
+    font-size: 20px;
+}
+.curr_coin_name{
+    padding-left: 10px;
+}
+.curr_coin_info span {
+    font-weight: 700;
+}
+.curr_coin_details{
+    display: flex;
+    align-items: center;
+}
+.curr_coin_symbol{
+    color: rgb(196, 218, 218);
+}
+.curr_prices_details{
+   padding: 10px 0; 
+   display: flex;
+   flex-direction: column;
+}
+
+.detail_item{
+    display: flex;
+    padding: 10px 0;
+}
+.detail_item span{
+    padding-left: 10px;
+}
+.rank{
+    font-weight: 600;
+}
+.btn_back{
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: #fff;
+    border:none;
+}
+.btn_back:hover{
+    color:rgb(241, 211, 173);
+}
+.btn__shop{
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
 }

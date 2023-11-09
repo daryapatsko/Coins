@@ -16,8 +16,17 @@ export interface ICoin {
 }
 
 export interface IButton{
-    title: string,
+    title?: string,
     onClick: () => void,
     customClass: string,
+    children?: ReactNode;
+
+}
+
+export interface IShopCoin{
+    id: string,
+    name:string,
+    symbol: string,
+    isAdded: boolean,
 
 }

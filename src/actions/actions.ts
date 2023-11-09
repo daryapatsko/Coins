@@ -9,7 +9,10 @@ export const coinCapApi = createApi({
     getCoinItem: builder.query({
       query: (id) => `/assets/${id}`,
     }),
+    getCoinHistory: builder.query({
+      query: ({ id, int }) => `/assets/${id}/history?interval=${int}`,
+    }),
   }),
 });
 
-export const {useGetDataPerPageQuery, useGetCoinItemQuery } = coinCapApi;
+export const {useGetDataPerPageQuery, useGetCoinItemQuery,useGetCoinHistoryQuery } = coinCapApi;

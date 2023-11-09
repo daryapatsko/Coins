@@ -4,12 +4,13 @@
 }
 .table__row:hover{
     background-color: #8c7b7b;
-    cursor: pointer;
+   
 }
 
 .info__name{
     display: flex;
     align-items: center;
+     cursor: pointer;
 }
 .info__name_img{
     display: block;
@@ -25,4 +26,9 @@ text-align: center;
 }
 .info__symbol{
     font-weight: 600;
+}
+.btn__shop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
 }
