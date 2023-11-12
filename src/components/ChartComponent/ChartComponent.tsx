@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RootState, setCoinHistory } from '../../store/store';
 import { useGetCoinHistoryQuery } from '../../actions/actions';
 import { ICoin } from '../../interfaces';
 import { useDispatch, useSelector } from 'react-redux';
+import * as d3 from 'd3'
 
 
 interface IChartComponent {
@@ -15,17 +16,17 @@ const ChartComponent:React.FC<IChartComponent> = ({id,currentCoin}) => {
   const [selectedInterval, setSelectedInterval] =useState('d1')
   const { data } = useGetCoinHistoryQuery({id,int: selectedInterval});
   const historyCoin = useSelector((state: RootState) => state.history.historyCoin)
- 
-console.log(selectedInterval)
+
   useEffect(() => {
     if (data) {
-      dispatch(setCoinHistory(data.data)); // Диспатчим historicalData в стор
+      dispatch(setCoinHistory(data.data));
     }
   }, [data, dispatch])
 
   const handleIntervalChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedInterval(event.target.value)
   }
+
 
   return (
     <div >Chart

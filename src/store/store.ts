@@ -6,6 +6,8 @@ const initialState = {
     coinsList: [],
     currentPage: 1,
     historyCoin:[],
+    shopCoins: [],
+    
 }
 const coinsSlice = createSlice({
     name: 'coins',
@@ -13,6 +15,9 @@ const coinsSlice = createSlice({
     reducers: {
         setCoinsList: (state, action) => {
             state.coinsList = action.payload;
+        },
+        setShopCoins: (state,action) => {
+            state.shopCoins = action.payload;
         }
     }
 })
@@ -37,6 +42,7 @@ const historySlice = createSlice({
 
 
 export const { setCoinsList } = coinsSlice.actions;
+export const { setShopCoins } = coinsSlice.actions;
 export const { setCurrentPage } = paginationSlice.actions;
 export const { setCoinHistory } = historySlice.actions;
 

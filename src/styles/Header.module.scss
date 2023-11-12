@@ -1,6 +1,35 @@
 .header__container{
-    max-height: 70px;
-    background-color: rgb(144, 135, 135);
-    padding: 20px;
-    height: 100%;
+    padding: 10px;
+
+}
+.coins__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__coins{
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info__name_img{
+    width: 40% ;
+}
+.price_header{
+    padding-left: 10px;
+    font-size: 20px;
+}
+.header__coins_item{
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+}
+.header__bag{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
 }

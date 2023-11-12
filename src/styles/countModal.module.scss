@@ -1,0 +1,58 @@
+.count__modal__container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,.4);
+    z-index: 1;
+}
+.count__modal{
+    position: relative;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    background-color: rgb(249, 249, 249);
+}
+.btn__add_modal,
+.btn__close_modal,
+.btn__arrow{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+.btn__close_modal{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.header__modal{
+    padding: 10px 0;
+}
+.header__form{
+    padding: 10px 0;
+}
+.header__input{
+    padding: 0 5px;
+}
+.btn__arrow{
+    padding: 0 10px;
+}
+.header__total{
+    padding: 10px 0;
+}
+.btn__add_modal{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.btn__add_modal:hover,
+.btn__arrow:hover,
+.btn__close_modal:hover{
+    transform: scale(1.3);
+}

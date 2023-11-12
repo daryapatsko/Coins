@@ -12,23 +12,27 @@ export function shortNum(value: string) {
 }
 
 export const addToShopBag = (coin: ICoin) => {
-    const shopCoins = JSON.parse(localStorage.getItem('shopCoins') || '[]')
-
-    const existingCoin = shopCoins.find((item: ICoin) => item.id === coin.id)
+    let shopCoins:ICoin[] = JSON.parse(localStorage.getItem('shopCoins') || '[]')
     const existingCoinIndex = shopCoins.findIndex((item: ICoin) => item.id === coin.id)
 
   if (existingCoinIndex !== -1) {
-    shopCoins.splice(existingCoinIndex, 1) 
+    alert('coin in basket')
+  } else{
+    shopCoins.push(coin)
   }
-    const coinItem = {
-        id: coin.id,
-        name: coin.name,
-        symbol: coin.symbol,
-        price: coin.priceUsd,
-    }
-    if (!existingCoin) {
-        shopCoins.push(coinItem)
-    }
-    localStorage.setItem('shopCoins', JSON.stringify(shopCoins))
-  
+    updateLocalStorage(shopCoins)
 }
+
+export const updateLocalStorage = (shopCoins: ICoin[]) =>{
+    localStorage.setItem('shopCoins', JSON.stringify(shopCoins))
+}
+
+export const getShopCoins = () => {
+  return JSON.parse(localStorage.getItem('shopCoins') || '[]');
+};
+
+export const closeModal = ({setShowModal}:any) => {
+ return () => setShowModal(false)
+}
+
+

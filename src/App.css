@@ -4,4 +4,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    max-width: 1440px;
+}
+main{
+    flex:  1  1 auto;
+}
+ul {
+    list-style: none;
 }
