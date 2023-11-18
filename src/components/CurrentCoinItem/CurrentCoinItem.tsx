@@ -78,7 +78,7 @@ const CurrentCoinItem = () => {
                 <Button customClass={styles.btn__shop} onClick={() => {
                     setShowModal(true)
                 }}>
-                    <ShopBag /></Button>
+                    <ShopBag/></Button>
 
             </div>
             <div className={styles.schedule__container}>

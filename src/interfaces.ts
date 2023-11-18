@@ -25,7 +25,9 @@ export interface IButton {
 }
 
 export interface IBasketModalProps {
-  setShowModal: (value: boolean) => void;
+  setShowModal: (value: boolean) => void,
+  setTotalPrice: (value: number) => void,
+  totalPrice: number,
 }
 
 export interface IBasketCoin {

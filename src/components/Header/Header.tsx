@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from "../../styles/Header.module.scss"
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { ICoin } from '../../interfaces';
 import { shortNum } from '../../helpers/helpers';
@@ -10,11 +10,28 @@ import BasketModal from '../BasketModal/BasketModal';
 import Button from '../Button/Button';
 
 const Header = () => {
-  const coinsList = useSelector((state: RootState) => state.coins.coinsList); 
+  const coinsList = useSelector((state: RootState) => state.coins.coinsList);
+  const shopCoins: ICoin[] = useSelector((state: RootState) => state.coins.shopCoins);
   const topThreeCoins = coinsList.slice(0, 3);
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false);
-  
+  const [totalPrice, setTotalPrice] = useState(0);
+
+
+  useEffect(() => {
+    calculateTotalPrice()
+  }, [shopCoins])
+
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (const coin of shopCoins) {
+      if (coin.count) {
+        total += coin.count * Number(coin.priceUsd);
+      }
+    }
+    setTotalPrice(total);
+  };
   return (
     <div className={styles.header__container}>
       <div className={styles.coins__container}>
@@ -23,19 +40,25 @@ const Header = () => {
             <Button key={coin.id} customClass={styles.header__coins_item} onClick={() => {
               navigate(`/coins/${coin.id}`)
             }}>
-              <img className={styles.info__name_img} src={`https://assets.coincap.io/assets/icons/${(coin.symbol).toLowerCase()}@2x.png`} alt={coin.symbol} /> 
+              <img className={styles.info__name_img} src={`https://assets.coincap.io/assets/icons/${(coin.symbol).toLowerCase()}@2x.png`} alt={coin.symbol} />
               <p className={styles.price_header}>{shortNum(coin.priceUsd)}$</p>
-              </Button>
+            </Button>
           ))}
-          
+
         </div>
-        <div className="header__shop">
+        <div className={styles.header__shop}>
+          {totalPrice > 0 && <div >Total: <span className={styles.shop__total}>{totalPrice.toFixed(2)}$</span></div>}
           <div className={styles.shop__price__box}>
-          {showModal && (
-          <BasketModal setShowModal={setShowModal}/>
-        )}
+            {showModal && (
+              <BasketModal
+              setTotalPrice={setTotalPrice}
+              totalPrice={totalPrice}
+              setShowModal={setShowModal}
+                />
+            )}
           </div>
-          <Button onClick={() => setShowModal(true)} customClass={styles.header__bag}><HeaderBag /></Button>
+          <Button onClick={() => setShowModal(true)} customClass={styles.header__bag}><HeaderBag />
+          </Button>
         </div>
       </div>
     </div>

@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styles from "../../styles/BasketModal.module.scss"
-import { getShopCoins } from '../../helpers/helpers';
 import Button from '../Button/Button';
 import Close from '../../assets/img/Close';
-import { IBasketCoin } from '../../interfaces';
-import { IBasketModalProps } from '../../interfaces';
+import { IBasketModalProps, ICoin } from '../../interfaces';
+import { getShopCoins, updateShopCoins } from '../../helpers/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setShopCoins } from '../../store/store';
 
 
-const BasketModal = ({ setShowModal }: IBasketModalProps) => {
-  const [basketCoins, setBasketCoins] = useState<IBasketCoin[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+const BasketModal = ({ setShowModal, totalPrice, setTotalPrice }: IBasketModalProps) => {
+  const shopCoins: ICoin[] = useSelector((state: RootState) => state.coins.shopCoins);
+  const dispatch = useDispatch()
+
+ useEffect(() => {
+  const updatedShopCoins = getShopCoins();
+  setShopCoins(updatedShopCoins);
+}, []);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-    const shopCoins = getShopCoins();
-    setBasketCoins(shopCoins);
-    return () =>{
+    return () => {
       document.body.style.overflow = 'auto'
     }
   }, []);
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [basketCoins]);
+  const deleteItem = (id: string) => {
+    const shopCoins: ICoin[] = getShopCoins();
+    const coinIndex = shopCoins.findIndex((item) => item.id === id);
 
-  const calculateTotalPrice = () => {
-    let total = 0;
-    for (const coin of basketCoins) {
-      if (coin.count) {
-        total += coin.count * coin.priceUsd;
-      }
+    if (coinIndex !== -1) {
+      shopCoins.splice(coinIndex, 1);
+      updateShopCoins(shopCoins);
+      dispatch(setShopCoins(shopCoins))
     }
-    setTotalPrice(total);
   };
-  const deleteItemCoin = (id: string) => {
-    const updatedBasketCoins = basketCoins.filter((coin) => coin.id !== id);
-    setBasketCoins(updatedBasketCoins);
-    updateShopCoins(updatedBasketCoins)
-  };
-
-  const updateShopCoins = (updatedCoins:IBasketCoin[]) => {
-    localStorage.setItem('shopCoins', JSON.stringify(updatedCoins));
-  }
+  
 
   return (
     <div className={styles.basket__modal__container}>
@@ -49,18 +42,21 @@ const BasketModal = ({ setShowModal }: IBasketModalProps) => {
         <Button customClass={styles.btn__close_modal} onClick={() => setShowModal(false)}> <Close /></Button>
         <h3 className={styles.basket_header__modal}>Shopping Basket</h3>
         <div className={styles.basket__content}>
-          {basketCoins.length === 0 ? (
+          {shopCoins.length === 0 ? (
             <p>Your basket is empty.</p>
           ) : (
             <ul>
-              {basketCoins.map((coin: IBasketCoin, index) => (
+              {shopCoins.map((coin: ICoin, index) => (
                 <li key={index} className={styles.basket__item_coin}>
                   <div className={styles.basket__item_name}> {coin.name} </div>
                   <div className={styles.basket__item_details}>
-                    <div className={styles.basket__item_price}>Price: <span className={styles.price}>{(coin.count * coin.priceUsd).toFixed(2)} USD</span></div>
-                    <Button customClass={styles.btn__delete} onClick={() => deleteItemCoin(coin.id)}>Delete</Button>
+                    {coin.count &&
+                      <div className={styles.basket__item_price}>Price: <span className={styles.price}>{(coin.count * Number(coin.priceUsd)).toFixed(2)} USD</span></div>
+                    }
+                    <Button customClass={styles.btn__delete} onClick={() =>
+                      deleteItem(coin.id)
+                    }>Delete</Button>
                   </div>
-
                 </li>
               ))}
             </ul>

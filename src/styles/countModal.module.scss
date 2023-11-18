@@ -52,7 +52,9 @@
     right: 20px;
 }
 .btn__add_modal:hover,
-.btn__arrow:hover,
-.btn__close_modal:hover{
+.btn__arrow:hover{
     transform: scale(1.3);
+}
+.btn__close_modal:hover{
+    transform: rotate(90deg);
 }

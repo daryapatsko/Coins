@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { ICoin } from '../../../interfaces';
 import styles from "../../../styles/coinItem.module.scss"
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ const CoinItem = ({ coin }: { coin: ICoin }) => {
   const navigate = useNavigate()
   const sourse = coin.symbol;
   const [showModal, setShowModal] = useState(false);
+
   const handleRowClick = () => {
     navigate(`/coins/${coin.id}`)
   }

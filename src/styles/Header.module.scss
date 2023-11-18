@@ -29,7 +29,17 @@
     background-color: inherit;
 }
 .header__bag{
+    position: relative;
     border: none;
     background-color: inherit;
     cursor: pointer;
+}
+
+.header__shop{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.shop__total{
+    font-weight: 600;
 }

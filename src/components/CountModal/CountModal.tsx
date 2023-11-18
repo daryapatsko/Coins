@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react'
 import styles from "../../styles/countModal.module.scss"
 import Close from '../../assets/img/Close'
 import Button from '../Button/Button'
-import { addToShopBag } from '../../helpers/helpers'
+import { addToShopBag,
+    getShopCoins
+} from '../../helpers/helpers'
+import { useDispatch } from 'react-redux'
+import { setShopCoins } from '../../store/store'
+
 
 const CountModal = ({setShowModal, coin}: any) => {
+    const dispatch = useDispatch()
     const [count, setCount] = useState<number | string>(0)
     const [totalPrice, setTotalPrice] = useState<number>(0)
     useEffect(() => {
@@ -40,6 +46,8 @@ const CountModal = ({setShowModal, coin}: any) => {
     const handleAddClick = () => {
             addToShopBag({ ...coin, count});
             setShowModal(false)
+            const shopCoins = getShopCoins()
+            dispatch(setShopCoins(shopCoins))
     };
 
     const handleKeyDown = (e: any) => {
