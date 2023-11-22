@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ICoin } from '../../../interfaces';
 import styles from "../../../styles/coinItem.module.scss"
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ const CoinItem = ({ coin }: { coin: ICoin }) => {
   const navigate = useNavigate()
   const sourse = coin.symbol;
   const [showModal, setShowModal] = useState(false);
+  // const percentColor = Number(coin.changePercent24Hr) > 0 ? 'green' : Number(coin.changePercent24Hr) < 0 ? 'red' : '';
 
   const handleRowClick = () => {
     navigate(`/coins/${coin.id}`)
@@ -30,7 +31,7 @@ const CoinItem = ({ coin }: { coin: ICoin }) => {
       </td>
       <td className={styles.info__price}>{shortNum(coin.priceUsd)} USD</td>
       <td className={styles.info__market}>{shortNum(coin.marketCapUsd)} USD</td>
-      <td className={styles.info__percent}>{shortNum(coin.changePercent24Hr)} %</td>
+      <td className={`${styles.info__percent} ${Number(coin.changePercent24Hr) >= 0 ? styles.positive : styles.negative}`}>{shortNum(coin.changePercent24Hr)} %</td>
       <td >
         <Button customClass={styles.btn__shop} onClick={addToBasket}>
           <ShopBag/>

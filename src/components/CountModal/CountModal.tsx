@@ -7,9 +7,11 @@ import { addToShopBag,
 } from '../../helpers/helpers'
 import { useDispatch } from 'react-redux'
 import { setShopCoins } from '../../store/store'
+import { ICountModal } from '../../interfaces'
 
 
-const CountModal = ({setShowModal, coin}: any) => {
+
+const CountModal: React.FC<ICountModal> = ({setShowModal, coin}) => {
     const dispatch = useDispatch()
     const [count, setCount] = useState<number | string>(0)
     const [totalPrice, setTotalPrice] = useState<number>(0)
@@ -24,7 +26,7 @@ const CountModal = ({setShowModal, coin}: any) => {
             document.body.style.overflow = 'auto'
           }
     }, [count, coin])
-    const handleInputChange = (e: any) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         if(inputValue === '' || inputValue === '0' || inputValue === '0.') {
             setCount(inputValue)
@@ -36,21 +38,22 @@ const CountModal = ({setShowModal, coin}: any) => {
         }
     }
 
-    const handleArrowClick = (value: any) => {
+    const handleArrowClick = (value: number) => {
         setCount((prevCount) => {
-            const newCount = roundToDecimal(prevCount + value, 2);
+            const newCount = roundToDecimal(Number(prevCount) + value, 2);
             return newCount >= 0 ? newCount : 0;
         })
     }
    
     const handleAddClick = () => {
-            addToShopBag({ ...coin, count});
+            addToShopBag({ ...coin, count: typeof count === 'string' ? parseFloat(count) : count});
             setShowModal(false)
             const shopCoins = getShopCoins()
             dispatch(setShopCoins(shopCoins))
+            
     };
 
-    const handleKeyDown = (e: any) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
             handleArrowClick(0.1);
         } else if (e.key === 'ArrowDown') {

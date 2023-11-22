@@ -36,3 +36,14 @@ export interface IBasketCoin {
   priceUsd: number;
   count: number;
 }
+
+export interface ICountModal {
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>> ,
+  coin: ICoin,
+}
+
+export interface IInput {
+searchValue: string,
+setSearchValue: React.Dispatch<React.SetStateAction<string>> ,
+customClass?: string,
+}

@@ -40,49 +40,51 @@ const CurrentCoinItem = () => {
 
     return (
         <div className={styles.curr__coin__container}>
-            <Button onClick={() => { navigate('/') }} title="Back to Main Page" customClass={styles.btn_back}></Button>
-            <div className={styles.curr_coin_info}>
-                <div className={styles.curr_coin_details}>
-                    <img
-                        className={styles.curr_coin_img}
-                        src={`https://assets.coincap.io/assets/icons/${sourse.toLowerCase()}@2x.png`}
-                        alt={currentCoin.symbol}
-                    />
-                    <div className={styles.curr_coin_name}>
-                        <span>{currentCoin.name}</span>
-                        <div className={styles.curr_coin_symbol}>
-                            <span>{currentCoin.symbol} <span className={styles.rank}>({currentCoin.rank})</span></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div className={styles.curr_prices_details}>
-                    <div className={styles.detail_item}>
-                        <div className={styles.curr_coin_supply}>Supply: </div>
-                        <span>{shortNum(currentCoin.supply)}</span>
-                    </div>
-                    <div className={styles.detail_item}>
-                        <div className={styles.curr_coin_price}>Price: </div>
-                        <span>{price}</span>
-                    </div>
-                    <div className={styles.detail_item}>
-                        <div className={styles.curr_coin_market}>Market Cap: </div>
-                        <span>{shortNum(currentCoin.marketCapUsd)}</span>
-                    </div>
-                    <div className={styles.detail_item}>
-                        <div className={styles.curr_coin_maxsupply}>Max supply: </div>
-                        <span>{shortNum(currentCoin.maxSupply)}</span>
-                    </div>
-
-                </div>
-                <Button customClass={styles.btn__shop} onClick={() => {
-                    setShowModal(true)
-                }}>
-                    <ShopBag/></Button>
-
-            </div>
             <div className={styles.schedule__container}>
+                <Button onClick={() => { navigate('/') }} title="Back to Main Page" customClass={styles.btn_back}></Button>
                 <ChartComponent id={id} currentCoin={currentCoin} />
+            </div>
+            <div className={styles.curr__coin__content}>
+                <div className={styles.curr_coin_info}>
+                    <div className={styles.curr_coin_details}>
+                        <img
+                            className={styles.curr_coin_img}
+                            src={`https://assets.coincap.io/assets/icons/${sourse.toLowerCase()}@2x.png`}
+                            alt={currentCoin.symbol}
+                        />
+                        <div className={styles.curr_coin_name}>
+                            <span>{currentCoin.name}</span>
+                            <div className={styles.curr_coin_symbol}>
+                                <span>{currentCoin.symbol} <span className={styles.rank}>({currentCoin.rank})</span></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className={styles.curr_prices_details}>
+                        <div className={styles.detail_item}>
+                            <div className={styles.curr_coin_supply}>Supply: </div>
+                            <span>{shortNum(currentCoin.supply)}</span>
+                        </div>
+                        <div className={styles.detail_item}>
+                            <div className={styles.curr_coin_price}>Price: </div>
+                            <span>{price}</span>
+                        </div>
+                        <div className={styles.detail_item}>
+                            <div className={styles.curr_coin_market}>Market Cap: </div>
+                            <span>{shortNum(currentCoin.marketCapUsd)}</span>
+                        </div>
+                        <div className={styles.detail_item}>
+                            <div className={styles.curr_coin_maxsupply}>Max supply: </div>
+                            <span>{shortNum(currentCoin.maxSupply)}</span>
+                        </div>
+
+                    </div>
+                    <Button customClass={styles.btn__shop} onClick={() => {
+                        setShowModal(true)
+                    }}>
+                        <ShopBag /></Button>
+
+                </div>
             </div>
             {showModal && (
                 <CountModal coin={currentCoin} setShowModal={setShowModal} />

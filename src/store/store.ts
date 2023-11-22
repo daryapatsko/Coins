@@ -7,6 +7,7 @@ const initialState = {
     currentPage: 1,
     historyCoin:[],
     shopCoins: [],
+    topCoins:[],
     
 }
 const coinsSlice = createSlice({
@@ -16,9 +17,12 @@ const coinsSlice = createSlice({
         setCoinsList: (state, action) => {
             state.coinsList = action.payload;
         },
-        setShopCoins: (state,action) => {
+        setShopCoins: (state, action) => {
             state.shopCoins = action.payload;
-        }
+        },
+        setTopCoins:(state, action) => {
+            state.topCoins = action.payload;
+        },
     }
 })
 const paginationSlice = createSlice({
@@ -45,7 +49,7 @@ export const { setCoinsList } = coinsSlice.actions;
 export const { setShopCoins } = coinsSlice.actions;
 export const { setCurrentPage } = paginationSlice.actions;
 export const { setCoinHistory } = historySlice.actions;
-
+export const { setTopCoins } = coinsSlice.actions;
 
 export const store = configureStore({
     reducer: {

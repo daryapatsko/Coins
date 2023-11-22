@@ -11,7 +11,7 @@ export function shortNum(value: string) {
     return numValue.toFixed(2) + suffixes[suffixInd]
 }
 
-export const addToShopBag = (coin: ICoin) => {
+export const addToShopBag = (coin: ICoin): void => {
     let shopCoins:ICoin[] = JSON.parse(localStorage.getItem('shopCoins') || '[]')
     const existingCoinIndex = shopCoins.findIndex((item: ICoin) => item.id === coin.id)
 
@@ -23,7 +23,7 @@ export const addToShopBag = (coin: ICoin) => {
   }
 }
 
-export const closeModal = ({setShowModal}:any) => {
+export const closeModal = ({setShowModal}: { setShowModal: React.Dispatch<React.SetStateAction<boolean>> }): () => void => {
   return () => setShowModal(false)
  }
 
@@ -37,24 +37,12 @@ export  const calculateTotalPrice = (basketCoins: ICoin[]) => {
   return total
 };
 
-export const getShopCoins = () => {
+export const getShopCoins = (): ICoin[] => {
   return JSON.parse(localStorage.getItem('shopCoins') || '[]');
 };
 
 
-export const updateShopCoins = (updatedCoins:ICoin[]) => {
+export const updateShopCoins = (updatedCoins: ICoin[]): void => {
   localStorage.setItem('shopCoins', JSON.stringify(updatedCoins));
 }
 
-// export const deleteItem = (id:string) => {
-//   const shopCoins: ICoin[] = getShopCoins();
-//   const coinIndex = shopCoins.findIndex((item) => item.id === id);
-
-//   if (coinIndex !== -1) {
-//     shopCoins.splice(coinIndex, 1);
-//     updateShopCoins(shopCoins);
-//     dispatch(setShopCoins(shopCoins))
-//     // Refresh the basket modal
-//     // Dispatch an action or update the state
-//   }
-// };

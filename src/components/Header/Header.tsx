@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from "../../styles/Header.module.scss"
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setTopCoins } from '../../store/store';
 import { ICoin } from '../../interfaces';
 import { shortNum } from '../../helpers/helpers';
 import { useNavigate } from 'react-router-dom';
@@ -10,15 +10,23 @@ import BasketModal from '../BasketModal/BasketModal';
 import Button from '../Button/Button';
 
 const Header = () => {
-  const coinsList = useSelector((state: RootState) => state.coins.coinsList);
+  const coinsList = useSelector((state: RootState) => state.coins.coinsList) as ICoin[];
   const shopCoins: ICoin[] = useSelector((state: RootState) => state.coins.shopCoins);
-  const topThreeCoins = coinsList.slice(0, 3);
+  const topCoins: ICoin[] = useSelector((state: RootState) => state.coins.topCoins);
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const dispatch = useDispatch()
+  const addTopCoins = () => {
+    const topThreeCoins = coinsList
+      .slice()
+      .sort((a, b) => Number(a.rank) - Number(b.rank))
+      .slice(0, 3);
+    dispatch(setTopCoins(topThreeCoins))
+  }
 
   useEffect(() => {
+    addTopCoins()
     calculateTotalPrice()
   }, [shopCoins])
 
@@ -34,9 +42,9 @@ const Header = () => {
   };
   return (
     <div className={styles.header__container}>
-      <div className={styles.coins__container}>
+      <div className={styles.header__box}>
         <div className={styles.header__coins}>
-          {topThreeCoins.map((coin: ICoin) => (
+          {topCoins.map((coin: ICoin) => (
             <Button key={coin.id} customClass={styles.header__coins_item} onClick={() => {
               navigate(`/coins/${coin.id}`)
             }}>
@@ -51,10 +59,10 @@ const Header = () => {
           <div className={styles.shop__price__box}>
             {showModal && (
               <BasketModal
-              setTotalPrice={setTotalPrice}
-              totalPrice={totalPrice}
-              setShowModal={setShowModal}
-                />
+                setTotalPrice={setTotalPrice}
+                totalPrice={totalPrice}
+                setShowModal={setShowModal}
+              />
             )}
           </div>
           <Button onClick={() => setShowModal(true)} customClass={styles.header__bag}><HeaderBag />
