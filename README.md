@@ -1,1 +1,1 @@
-Link on [NewsApp](https://fancy-rabanadas-684a42.netlify.app/)
+Link on [CoinsApp](https://fancy-rabanadas-684a42.netlify.app/)
