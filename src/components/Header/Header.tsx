@@ -31,7 +31,7 @@ const Header = () => {
 
   useEffect(()=>{
     addTopCoins()
-  }, [])
+  }, [coinsList])
   
   const calculateTotalPrice = () => {
     let total = 0;
