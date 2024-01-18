@@ -26,11 +26,13 @@ const Header = () => {
   }
 
   useEffect(() => {
-    addTopCoins()
     calculateTotalPrice()
   }, [shopCoins])
 
-
+  useEffect(()=>{
+    addTopCoins()
+  }, [])
+  
   const calculateTotalPrice = () => {
     let total = 0;
     for (const coin of shopCoins) {
